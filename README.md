@@ -21,6 +21,13 @@ We are using (packages):
 
 ### Preparing developing environment
 
+First export environment vars to environment using .env file
+We have created a small script, simply execute: `./set_env.sh`
+
+TODO Fixtures:
+Create a super user: `python manage.py createsuperuser`
+Create data and load data.
+
 We are using pipenv but you can prepare the virtual environment using virtualven or whatever:
 
 - (If you dont have pipenv on your system) install pipenv with `pip install pipenv`
@@ -36,8 +43,8 @@ We have created a make file with shortcuts:
 - make pipenv `pipenv install --dev`
 To launch a Django Fake Mail client where receive local mails and view content
 
-- make mailclient `python -m smtpd -n -c DebuggingServer localhost:1025`
-To launch a Django Fake Mail client where receive local mails and view content
+- make mailserver `python -m smtpd -n -c DebuggingServer localhost:1025`
+To launch a Django Fake Mail server where receive local mails and view content
 
 - make precommit `pre-commit run --all-files`
 On environment always use before commit. If you dont and do commit before run pre-commit, pre-commit is auto-triggered

@@ -1,0 +1,15 @@
+[run]
+omit =
+    */tests/*
+    /root/*
+    */wsgi.py
+    */apps.py
+    */migrations/*
+    */views.py
+    */admin.py
+    */__init__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    @abstract

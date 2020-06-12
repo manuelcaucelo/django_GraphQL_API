@@ -7,7 +7,7 @@ repos:
         - id: end-of-file-fixer
         - id: trailing-whitespace
         # Uncomment next line if working with several branches (now only master)
-        # - id: no-commit-to-branch        
+        # - id: no-commit-to-branch
         - id: pretty-format-json
           args: ['--autofix']
 
@@ -15,7 +15,7 @@ repos:
     rev: v1.9.4
     hooks:
     -   id: seed-isort-config
-      
+
 -   repo: https://github.com/timothycrosley/isort
     rev: 4.3.21
     hooks:

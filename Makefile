@@ -1,8 +1,8 @@
 #!/usr/bin/make -f
 
-path = DjangoGraphql
+path = api_ideas
 
-pipenvpipenv:
+pipenv:
 	$(RUN_COMMAND) pipenv install --dev
 
 migrations:
@@ -22,3 +22,6 @@ mailserver:
 
 precommit:
 	$(RUN_COMMAND) pre-commit run --all-files
+
+runserver:
+	$(RUN_COMMAND) python $(path)/manage.py runserver

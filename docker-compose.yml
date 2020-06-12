@@ -37,7 +37,4 @@ services:
       - 8000:8000
     networks:
       local:
-    command: bash -c "
-    pipenv run python manage.py migrate &&
-    pipenv run python manage.py loaddata flags
-    "
+    command: bash -c "pipenv run python manage.py migrate && pipenv run python manage.py loaddata flags"
