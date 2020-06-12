@@ -1,0 +1,43 @@
+version: '3'
+
+networks:
+  local:
+
+services:
+  postgres:
+    container_name: postgresql_container
+    image: postgres:10.12
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgresql_db
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      local:
+        aliases:
+          - postgresql_db
+
+  api:
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - pipenv_dev=1
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PIPENV_DOTENV_LOCATION=/tmp/.env
+    working_dir: /code
+    volumes:
+      - ./DjangoGraphql:/code
+      - ./.env:/tmp/.env
+    ports:
+      - 8000:8000
+    networks:
+      local:
+    command: bash -c "
+    pipenv run python manage.py migrate &&
+    pipenv run python manage.py loaddata flags
+    "

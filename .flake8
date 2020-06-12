@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 79
+ignore=E501,E225,E261,W391,E241,F401,E231,W503
+exclude=**/DjangoGraphql/settings*.py,**/DjangoGraphql/__init__.py,**/migrations
+max-complexity=10

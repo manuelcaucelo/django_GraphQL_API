@@ -1,0 +1,32 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+        - id: check-yaml
+        - id: check-json
+        - id: end-of-file-fixer
+        - id: trailing-whitespace
+        # Uncomment next line if working with several branches (now only master)
+        # - id: no-commit-to-branch        
+        - id: pretty-format-json
+          args: ['--autofix']
+
+-   repo: https://github.com/asottile/seed-isort-config
+    rev: v1.9.4
+    hooks:
+    -   id: seed-isort-config
+      
+-   repo: https://github.com/timothycrosley/isort
+    rev: 4.3.21
+    hooks:
+        - id: isort
+
+-   repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+        - id: black
+
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.2
+    hooks:
+        - id: flake8

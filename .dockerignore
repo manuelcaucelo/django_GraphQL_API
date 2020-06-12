@@ -1,0 +1,6 @@
+Pipfile.lock
+Jenkinsfile
+Dockerfile
+docker-compose.yml
+docker-compose.testing.yml
+.venv
