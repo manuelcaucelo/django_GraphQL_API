@@ -13,7 +13,7 @@ import channels.auth
 from django.urls import path
 from graphene_subscriptions.consumers import GraphqlSubscriptionConsumer
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api_ideas.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api_ideas.settings")
 
 application = channels.routing.ProtocolTypeRouter(
     {
