@@ -1,4 +1,5 @@
 import graphene
+from graphene_subscriptions.events import CREATED
 from django.core.exceptions import ObjectDoesNotExist
 from graphene_django.types import DjangoObjectType
 from graphql_jwt.decorators import login_required
@@ -134,3 +135,20 @@ class Mutation(graphene.ObjectType):
     create_idea = CreateIdea.Field()
     remove_idea = RemoveIdea.Field()
     status_idea = SetStatusIdea.Field()
+
+
+class Subscription(graphene.ObjectType):
+    idea_created = graphene.Field(IdeaType)
+
+    def resolve_idea_created(root, info):
+
+        following_user_ids = Following.objects.filter(
+            follower=info.context.user, status=Following.APPROVED
+        ).values_list("followed__id", flat=True)
+
+        return root.filter(
+            lambda event: event.operation == CREATED
+            and isinstance(event.instance, Idea)
+            and event.instance.user.pk in following_user_ids
+            and event.instance.status in [Idea.PUBLIC, Idea.PROTECTED]
+        ).map(lambda event: event.instance)

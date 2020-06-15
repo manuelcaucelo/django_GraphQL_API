@@ -8,6 +8,8 @@ omit =
     */views.py
     */admin.py
     */__init__.py
+    api_ideas/*
+    manage.py
 
 [report]
 exclude_lines =

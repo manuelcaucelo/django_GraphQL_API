@@ -22,15 +22,29 @@ class AuthMutation(graphene.ObjectType):
 
 
 class Query(
-    users.schema.Query, ideas.schema.Query, UserQuery, MeQuery, graphene.ObjectType,
+    UserQuery, MeQuery,
+    users.schema.Query,
+    ideas.schema.Query,
+    following.schema.Query,
+    graphene.ObjectType,
 ):
     pass
 
 
 class Mutation(
-    AuthMutation, users.schema.Mutation, ideas.schema.Mutation, graphene.ObjectType,
+    AuthMutation,
+    users.schema.Mutation,
+    ideas.schema.Mutation,
+    following.schema.Mutation,
+    graphene.ObjectType,
 ):
     pass
 
 
-schema = graphene.Schema(query=Query, mutation=Mutation)
+class Subscription(
+    ideas.schema.Subscription
+):
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation, subscription=Subscription)

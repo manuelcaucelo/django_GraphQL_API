@@ -35,6 +35,7 @@ SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = get_env_variable("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -75,7 +76,7 @@ ROOT_URLCONF = "api_ideas.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -98,17 +99,17 @@ ASGI_APPLICATION = "api_ideas.asgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+         "ENGINE": "django.db.backends.postgresql_psycopg2",
+         "NAME": get_env_variable("DB_NAME"),
+         "USER": get_env_variable("DB_USER"),
+         "PASSWORD": get_env_variable("DB_PASSWORD"),
+         "HOST": get_env_variable("DB_HOST"),
+         "PORT": get_env_variable("DB_PORT"),
     },
-    # 'postgresql': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': get_env_variable('DB_NAME'),
-    #     'USER': get_env_variable('DB_USER'),
-    #     'PASSWORD': get_env_variable('DB_PASSWORD'),
-    #     'HOST': get_env_variable('DB_HOST'),
-    #     'PORT': get_env_variable('DB_PORT'),
-    # },
+    # "sqlite": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # },    
 }
 
 
@@ -116,9 +117,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
@@ -180,18 +179,16 @@ GRAPHQL_AUTH = {
 }
 
 # Email
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = "localhost"
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = "z1@example.com"
+EMAIL_HOST = get_env_variable("EMAIL_HOST")
+EMAIL_PORT = int(get_env_variable("EMAIL_PORT"))
+EMAIL_HOST_USER = get_env_variable("EMAIL_USER")
+EMAIL_HOST_PASSWORD = get_env_variable("EMAIL_PASSWORD")
+EMAIL_USE_TLS = str(get_env_variable("EMAIL_USE_TLS")).lower() == "true"
+DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL")
 
-# EMAIL_HOST = get_env_variable('EMAIL_HOST')
-# EMAIL_PORT = get_env_variable('EMAIL_PORT')
-# EMAIL_HOST_USER = get_env_variable('EMAIL_USER')
-# EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_PASSWORD')
-# EMAIL_USE_TLS = get_env_variable('EMAIL_USE_TLS')
-# DEFAULT_FROM_EMAIL = get_env_variable('DEFAULT_FROM_EMAIL')
+# Channel Layer
+
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
