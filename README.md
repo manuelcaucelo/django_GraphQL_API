@@ -38,7 +38,24 @@ You must only do a simple...
 
 ...and enjoy!
 
+Info of interest:
 
+all fixture users are:
+
+test2, test3, test4... test5@test.com and password is smart@Z1 or smart@z1
+
+Also there is a superadmin user:
+
+manuelcaucelo@gmail.com / smart@z1
+
+In register process a validation email will be send.
+I have no integratiosn with mailgun or similar so i used the python mail server to check the email token in the magiclink.
+
+You can see that mail appear making a docker log follow in mail docker.
+
+You can use: 127.0.0.1:8000/graphql or import insomnia collection to check the endpoints.
+
+You can also check in the .env file the connection info to postgreSQL database.
 
 ### Launchers
 
