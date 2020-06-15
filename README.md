@@ -9,7 +9,8 @@ We are using (dev and code):
 - isort to sort imports inside code
 - black as code formatter
 - flake8 to check code quality
-- pylint as linter
+- pylint and extensions as linter
+- mixer and pytest (and extensions) for testing
 
 We are using (packages):
 - Django 3.0.7 as base
@@ -17,28 +18,31 @@ We are using (packages):
 - Django Filters extension from Django
 - django-graphql-auth and django-graphql-jwt to manage authentication and tokens
 - django-channels-graphql-ws and graphene-subscriptions to manage API subscriptions
+- psycopg2-binary to connect to PostgreSQL
 
 
-### Preparing developing environment
+### How to RUN develop environment
 
-First export environment vars to environment using .env file
-We have created a small script, simply execute: `./set_env.sh`
+We have created a docker-compose that run three dockers:
 
-TODO Fixtures:
-Create a super user: `python manage.py createsuperuser`
-Create data and load data.
+**THE API**: graphql_django_api_api_ideas_1
 
-We are using pipenv but you can prepare the virtual environment using virtualven or whatever:
+**THE POSTGRESQL DATABASE**: dev_postgresql_container
 
-- (If you dont have pipenv on your system) install pipenv with `pip install pipenv`
-- Create local develop environment `pipenv install --dev`
-- Synchronize environment `pipenv lock & pipenv sync` (if you need)
-- Enter on environment shell: `pipenv shell`
+**FAKE MAIL SERVER TO MANAGE REGISTERS**: dev_mail_container
+
+
+You must only do a simple...
+
+```docker-compose up```
+
+...and enjoy!
+
 
 
 ### Launchers
 
-We have created a make file with shortcuts:
+We have created a make file with shortcuts (to play in local):
 
 - make pipenv `pipenv install --dev`
 To launch a Django Fake Mail client where receive local mails and view content
@@ -60,3 +64,24 @@ Make the migrations
 
 - make migrate `manage.py migrate $(ATTRS)`
 Execute the migrations
+
+
+### Extras
+
+- Added a Insomnia JSON file to check the GraphQL endpoints.
+- Added fixtures to hace data to play with (docker compose load this data)
+- Added special GraphQL template to check subscription.
+    * Due to insomnia or simple GraphQL cannot launch subscriptions (has a problem sending headers with channels). We have included a modified version of graphQL to check the subscription. These are the steps:
+    1. Login in admin panel with super user:
+        manuelcaucelo@gmail.com / smart@z1
+    2. Open 127.0.0.1:8000/graphql in your browser and check with "me" Query if we are logged. If not, use AuthToken function.
+    After reload again this browser and you can see the me response.
+    3. Launch subscription (the browser will remain awaiting news...)
+    4. From insomnia use test4@test.com user to to login and create an idea.
+    5. You can see the message appears in browser!
+
+### To DO
+
+- Would be nice a coverage of 100% (current 73%). Its bored and its only a demo.
+- Would be great add Celery (or another) and Cache.
+- I need more time to do a "boy scout refactor"

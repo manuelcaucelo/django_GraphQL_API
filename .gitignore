@@ -574,4 +574,4 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/zsh,git,python,django,pycharm,ansible,intellij,sublimetext,visualstudio
 
-DjangoGraphql/test-reports/
+api_ideas/test-reports/

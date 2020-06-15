@@ -1,10 +1,9 @@
 import graphene
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from graphene_django.types import DjangoObjectType
-from graphql_jwt.decorators import login_required
 from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
 from users.models import CustomUser
-from django.core.exceptions import ValidationError
 
 
 class UserType(DjangoObjectType):
@@ -23,11 +22,9 @@ class Query(object):
     @login_required
     def resolve_find_username(self, info, username, **kwargs):
         # Added simple optional pagination
-        skip = kwargs.get('skip', None)
-        first = kwargs.get('first', None)
-        usernames = CustomUser.objects.filter(
-            username__contains=username
-        )
+        skip = kwargs.get("skip", None)
+        first = kwargs.get("first", None)
+        usernames = CustomUser.objects.filter(username__contains=username)
         if skip:
             usernames = usernames[skip:]
         if first:

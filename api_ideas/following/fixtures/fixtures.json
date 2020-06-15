@@ -1,102 +1,102 @@
 [
-    {
-        "model": "following.following",
-        "pk": 1,
-        "fields": {
-        "followed": 4,
-        "follower": 1,
-        "status": 1,
-        "created": "2020-06-14T10:32:15.943Z"
-        }
+  {
+    "fields": {
+      "created": "2020-06-14T10:32:15.943Z",
+      "followed": 4,
+      "follower": 1,
+      "status": 1
     },
-    {
-        "model": "following.following",
-        "pk": 3,
-        "fields": {
-        "followed": 6,
-        "follower": 1,
-        "status": 2,
-        "created": "2020-06-14T10:32:31.872Z"
-        }
+    "model": "following.following",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T10:32:31.872Z",
+      "followed": 6,
+      "follower": 1,
+      "status": 2
     },
-    {
-        "model": "following.following",
-        "pk": 4,
-        "fields": {
-        "followed": 7,
-        "follower": 1,
-        "status": 2,
-        "created": "2020-06-14T10:32:36.157Z"
-        }
+    "model": "following.following",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T10:32:36.157Z",
+      "followed": 7,
+      "follower": 1,
+      "status": 2
     },
-    {
-        "model": "following.following",
-        "pk": 5,
-        "fields": {
-        "followed": 8,
-        "follower": 1,
-        "status": 2,
-        "created": "2020-06-14T10:32:41.090Z"
-        }
+    "model": "following.following",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T10:32:41.090Z",
+      "followed": 8,
+      "follower": 1,
+      "status": 2
     },
-    {
-        "model": "following.following",
-        "pk": 6,
-        "fields": {
-        "followed": 9,
-        "follower": 1,
-        "status": 1,
-        "created": "2020-06-14T10:32:47.106Z"
-        }
+    "model": "following.following",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T10:32:47.106Z",
+      "followed": 9,
+      "follower": 1,
+      "status": 1
     },
-    {
-        "model": "following.following",
-        "pk": 8,
-        "fields": {
-        "followed": 1,
-        "follower": 11,
-        "status": 1,
-        "created": "2020-06-14T11:20:10.768Z"
-        }
+    "model": "following.following",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:20:10.768Z",
+      "followed": 1,
+      "follower": 11,
+      "status": 1
     },
-    {
-        "model": "following.following",
-        "pk": 9,
-        "fields": {
-        "followed": 1,
-        "follower": 12,
-        "status": 2,
-        "created": "2020-06-14T11:20:20.826Z"
-        }
+    "model": "following.following",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:20:20.826Z",
+      "followed": 1,
+      "follower": 12,
+      "status": 2
     },
-    {
-        "model": "following.following",
-        "pk": 10,
-        "fields": {
-        "followed": 1,
-        "follower": 13,
-        "status": 3,
-        "created": "2020-06-14T11:20:28.020Z"
-        }
+    "model": "following.following",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:20:28.020Z",
+      "followed": 1,
+      "follower": 13,
+      "status": 3
     },
-    {
-        "model": "following.following",
-        "pk": 11,
-        "fields": {
-        "followed": 1,
-        "follower": 14,
-        "status": 2,
-        "created": "2020-06-14T11:20:36.910Z"
-        }
+    "model": "following.following",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:20:36.910Z",
+      "followed": 1,
+      "follower": 14,
+      "status": 2
     },
-    {
-        "model": "following.following",
-        "pk": 12,
-        "fields": {
-        "followed": 1,
-        "follower": 15,
-        "status": 3,
-        "created": "2020-06-14T11:20:44.262Z"
-        }
-    }
+    "model": "following.following",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:20:44.262Z",
+      "followed": 1,
+      "follower": 15,
+      "status": 3
+    },
+    "model": "following.following",
+    "pk": 12
+  }
 ]

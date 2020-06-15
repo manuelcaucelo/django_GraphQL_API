@@ -23,6 +23,7 @@ django-graphql-jwt = "==0.3.0"
 django-graphql-auth = "==0.3.10"
 graphene_django = "==2.10.1"
 graphene-subscriptions = "==1.0.2"
+psycopg2-binary = "==2.8.5"
 
 [requires]
 python_version = "3.8"

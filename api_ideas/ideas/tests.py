@@ -1,12 +1,13 @@
-import pytest
 import graphene
-from graphene_django.types import DjangoObjectType
+import pytest
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory, TestCase
 from graphene.test import Client
-from mixer.backend.django import mixer
+from graphene_django.types import DjangoObjectType
 from ideas.models import Idea
+from mixer.backend.django import mixer
 from users.models import CustomUser
+
 from api_ideas.schema import schema
 
 
@@ -78,7 +79,7 @@ class TestIdeaSchema(TestCase):
         assert len(ideas) > 1
 
     def test_create_idea(self):
-        response = self.client.execute(CREATE_IDEA,context_value=self.my_request)
+        response = self.client.execute(CREATE_IDEA, context_value=self.my_request)
         response_idea = response.get("data").get("createIdea").get("idea")
         idea = response_idea.get("idea")
         status = response_idea.get("status")
@@ -86,7 +87,9 @@ class TestIdeaSchema(TestCase):
         assert status == STATUS_IDEA_CHOICE
 
     def test_create_idea_no_status(self):
-        response = self.client.execute(CREATE_IDEA_NO_STATUS,context_value=self.my_request)
+        response = self.client.execute(
+            CREATE_IDEA_NO_STATUS, context_value=self.my_request
+        )
         response_idea = response.get("data").get("createIdea").get("idea")
         idea = response_idea.get("idea")
         status = response_idea.get("status")
@@ -98,4 +101,3 @@ class TestIdeaSchema(TestCase):
         idea.idea = TEXT_IDEA
         idea.status = STATUS_IDEA_CHOICE_DEFAULT
         assert idea.__str__() == f"{TEXT_IDEA} ({STATUS_IDEA_CHOICE_DEFAULT})"
-

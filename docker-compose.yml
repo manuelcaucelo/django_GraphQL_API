@@ -5,21 +5,31 @@ networks:
 
 services:
   postgres:
-    container_name: postgresql_container
+    container_name: dev_postgresql_container
     image: postgres:10.12
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgresql_db
+      POSTGRES_DB: dev_postgresql_db
     ports:
       - "5432:5432"
     restart: unless-stopped
     networks:
       local:
         aliases:
-          - postgresql_db
+          - dev_postgresql_container
 
-  api:
+  fakemail:
+    container_name: dev_mail_container
+    image: python:3.8-slim-buster
+    ports:
+      - "1025:1025"
+    restart: unless-stopped
+    networks:
+      local:
+    command: "python -m smtpd -n -c DebuggingServer 0.0.0.0:1025"
+
+  api_ideas:
     tty: true
     build:
       context: .
@@ -30,11 +40,26 @@ services:
       - PYTHONDONTWRITEBYTECODE=1
       - PIPENV_DOTENV_LOCATION=/tmp/.env
     working_dir: /code
+    depends_on:
+      - "postgres"
+      - "fakemail"
+    links:
+      - postgres:dev_postgresql_container
+      - fakemail:dev_mail_container
     volumes:
-      - ./DjangoGraphql:/code
+      - ./api_ideas:/code
       - ./.env:/tmp/.env
     ports:
       - 8000:8000
     networks:
       local:
-    command: bash -c "pipenv run python manage.py migrate && pipenv run python manage.py loaddata flags"
+    command: bash -c "
+      dockerize -wait tcp://dev_postgresql_container:5432 -timeout 1m &&
+      pipenv run python manage.py flush --no-input &&
+      pipenv run python manage.py makemigrations &&
+      pipenv run python manage.py migrate &&
+      pipenv run python manage.py loaddata users/fixtures/fixtures.json &&
+      pipenv run python manage.py loaddata ideas/fixtures/fixtures.json &&
+      pipenv run python manage.py loaddata following/fixtures/fixtures.json &&
+      pipenv run pytest &&
+      pipenv run python manage.py runserver 0.0.0.0:8000"

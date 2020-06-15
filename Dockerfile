@@ -1,6 +1,6 @@
 FROM python:3.8-slim-buster
 
-ARG app_name="DjangoGraphql"
+ARG app_name="api_ideas"
 ENV APP_NAME $app_name
 
 ARG pipenv_dev=0
@@ -30,4 +30,4 @@ ENV WORKON_HOME /tmp
 
 RUN pipenv install --dev --skip-lock
 
-COPY --chown=1000 ./DjangoGraphql /code
+COPY --chown=1000 ./api_ideas /code

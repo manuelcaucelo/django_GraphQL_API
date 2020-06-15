@@ -1,72 +1,72 @@
 [
-    {
-        "model": "ideas.idea",
-        "pk": 1,
-        "fields": {
-          "idea": "This is the first idea",
-          "user": 1,
-          "status": 1,
-          "created": "2020-06-13T01:26:16.706Z"
-        }
-      },
-      {
-        "model": "ideas.idea",
-        "pk": 2,
-        "fields": {
-          "idea": "This is the second idea",
-          "user": 1,
-          "status": 2,
-          "created": "2020-06-13T01:27:11.343Z"
-        }
-      },
-      {
-        "model": "ideas.idea",
-        "pk": 3,
-        "fields": {
-          "idea": "This is the third idea",
-          "user": 1,
-          "status": 3,
-          "created": "2020-06-13T01:27:19.426Z"
-        }
-      },
-      {
-        "model": "ideas.idea",
-        "pk": 5,
-        "fields": {
-          "idea": "This is the fourth idea",
-          "user": 6,
-          "status": 3,
-          "created": "2020-06-14T11:31:09.071Z"
-        }
-      },
-      {
-        "model": "ideas.idea",
-        "pk": 6,
-        "fields": {
-          "idea": "This is the fith idea",
-          "user": 6,
-          "status": 2,
-          "created": "2020-06-14T11:31:28.064Z"
-        }
-      },
-      {
-        "model": "ideas.idea",
-        "pk": 7,
-        "fields": {
-          "idea": "This is the sith idea",
-          "user": 7,
-          "status": 1,
-          "created": "2020-06-14T11:31:47.908Z"
-        }
-      },
-      {
-        "model": "ideas.idea",
-        "pk": 8,
-        "fields": {
-          "idea": "This is the last idea",
-          "user": 9,
-          "status": 1,
-          "created": "2020-06-14T11:31:58.929Z"
-        }
-      }
+  {
+    "fields": {
+      "created": "2020-06-13T01:26:16.706Z",
+      "idea": "This is the first idea",
+      "status": 1,
+      "user": 1
+    },
+    "model": "ideas.idea",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "created": "2020-06-13T01:27:11.343Z",
+      "idea": "This is the second idea",
+      "status": 2,
+      "user": 1
+    },
+    "model": "ideas.idea",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "created": "2020-06-13T01:27:19.426Z",
+      "idea": "This is the third idea",
+      "status": 3,
+      "user": 1
+    },
+    "model": "ideas.idea",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:31:09.071Z",
+      "idea": "This is the fourth idea",
+      "status": 3,
+      "user": 6
+    },
+    "model": "ideas.idea",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:31:28.064Z",
+      "idea": "This is the fith idea",
+      "status": 2,
+      "user": 6
+    },
+    "model": "ideas.idea",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:31:47.908Z",
+      "idea": "This is the sith idea",
+      "status": 1,
+      "user": 7
+    },
+    "model": "ideas.idea",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "created": "2020-06-14T11:31:58.929Z",
+      "idea": "This is the last idea",
+      "status": 1,
+      "user": 9
+    },
+    "model": "ideas.idea",
+    "pk": 8
+  }
 ]

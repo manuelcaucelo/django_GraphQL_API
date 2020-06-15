@@ -1,11 +1,11 @@
 import graphene
-from graphene_subscriptions.events import CREATED
 from django.core.exceptions import ObjectDoesNotExist
-from graphene_django.types import DjangoObjectType
-from graphql_jwt.decorators import login_required
-from graphql import GraphQLError
-from ideas.models import Idea
 from following.models import Following
+from graphene_django.types import DjangoObjectType
+from graphene_subscriptions.events import CREATED
+from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
+from ideas.models import Idea
 
 
 class IdeaType(DjangoObjectType):
@@ -16,34 +16,21 @@ class IdeaType(DjangoObjectType):
 # Queries
 class Query(object):
     get_ideas = graphene.List(IdeaType)
-    get_user_ideas = graphene.List(
-        IdeaType,
-        user_id=graphene.Int(required=True),
-    )
-    get_timeline = graphene.List(
-        IdeaType,
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
+    get_user_ideas = graphene.List(IdeaType, user_id=graphene.Int(required=True),)
+    get_timeline = graphene.List(IdeaType, first=graphene.Int(), skip=graphene.Int(),)
 
     # Resolving Ideas
     @login_required
     def resolve_get_ideas(self, info, **kwargs):
-        return Idea.objects.filter(
-            user=info.context.user.id
-        ).order_by("-created")
+        return Idea.objects.filter(user=info.context.user.id).order_by("-created")
 
     @login_required
     def resolve_get_user_ideas(self, info, user_id):
         if user_id == info.context.user.id:
-            return Idea.objects.filter(
-                user=info.context.user.id
-            ).order_by("-created")
+            return Idea.objects.filter(user=info.context.user.id).order_by("-created")
         else:
-            get_ideas = Idea.objects.filter(
-                user=user_id, status=Idea.PUBLIC
-            )
-            i_am_follower=Following.objects.filter(
+            get_ideas = Idea.objects.filter(user=user_id, status=Idea.PUBLIC)
+            i_am_follower = Following.objects.filter(
                 follower=info.context.user.id,
                 followed=user_id,
                 status=Following.APPROVED,
@@ -61,8 +48,7 @@ class Query(object):
         accesible_notes = [Idea.PUBLIC, Idea.PROTECTED]
         my_ideas = Idea.objects.filter(user=info.context.user.id)
         following_list = Following.objects.filter(
-            follower=info.context.user.id,
-            status=Following.APPROVED
+            follower=info.context.user.id, status=Following.APPROVED
         ).values_list("followed", flat=True)
         following_ideas = Idea.objects.filter(
             user__in=following_list, status__in=accesible_notes
@@ -76,9 +62,9 @@ def check_exists(info, id):
     try:
         idea = Idea.objects.get(pk=id)
     except ObjectDoesNotExist:
-        raise GraphQLError('The idea not exists!')
+        raise GraphQLError("The idea not exists!")
     if idea.user_id != info.context.user.id:
-        raise GraphQLError('You are not the owner!')
+        raise GraphQLError("You are not the owner!")
     return idea
 
 
@@ -93,12 +79,8 @@ class CreateIdea(graphene.Mutation):
     @login_required
     def mutate(self, info, idea, **kwargs):
         # Optional field: default PUBLIC
-        status = kwargs.get('status', Idea.PUBLIC)
-        idea = Idea(
-            idea=idea,
-            status=status,
-            user_id=info.context.user.id
-        )
+        status = kwargs.get("status", Idea.PUBLIC)
+        idea = Idea(idea=idea, status=status, user_id=info.context.user.id)
         idea.save()
         return CreateIdea(idea=idea)
 

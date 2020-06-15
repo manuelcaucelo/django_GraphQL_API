@@ -7,17 +7,34 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Idea',
+            name="Idea",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('idea', models.CharField(max_length=254)),
-                ('status', models.PositiveSmallIntegerField(choices=[(1, 'The idea is public and available by someone'), (2, 'The idea is protected and available by followers'), (3, 'The idea is privated and not available')], default=1)),
-                ('created', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("idea", models.CharField(max_length=254)),
+                (
+                    "status",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (1, "The idea is public and available by someone"),
+                            (2, "The idea is protected and available by followers"),
+                            (3, "The idea is privated and not available"),
+                        ],
+                        default=1,
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

@@ -1,9 +1,9 @@
 import graphene
 from django.core.exceptions import ObjectDoesNotExist
-from graphene_django.types import DjangoObjectType
-from graphql_jwt.decorators import login_required
-from graphql import GraphQLError
 from following.models import Following
+from graphene_django.types import DjangoObjectType
+from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
 from users.models import CustomUser
 
 
@@ -13,34 +13,25 @@ class FollowingType(DjangoObjectType):
 
 
 class Query(object):
-    get_follow_requests = graphene.List(
-        FollowingType,
-    )
-    get_followers = graphene.List(
-        FollowingType,
-    )
-    get_following = graphene.List(
-        FollowingType,
-    )
+    get_follow_requests = graphene.List(FollowingType,)
+    get_followers = graphene.List(FollowingType,)
+    get_following = graphene.List(FollowingType,)
 
     @login_required
     def resolve_get_follow_requests(self, info):
-        return Following.objects.filter(
-            followed=info.context.user.id).filter(
+        return Following.objects.filter(followed=info.context.user.id).filter(
             status=Following.PENDING
         )
 
     @login_required
     def resolve_get_followers(self, info, **kwargs):
-        return Following.objects.filter(
-            followed=info.context.user.id).filter(
+        return Following.objects.filter(followed=info.context.user.id).filter(
             status=Following.APPROVED
         )
 
     @login_required
     def resolve_get_following(self, info, **kwargs):
-        return Following.objects.filter(
-            follower=info.context.user.id).filter(
+        return Following.objects.filter(follower=info.context.user.id).filter(
             status=Following.APPROVED
         )
 
@@ -57,7 +48,7 @@ class FollowRequest(graphene.Mutation):
         try:
             user_followed = CustomUser.objects.get(pk=user_to_follow)
         except ObjectDoesNotExist:
-            raise GraphQLError('The user to follow not exists!')
+            raise GraphQLError("The user to follow not exists!")
         do_follow_request = Following(
             follower=info.context.user,
             followed=user_followed,
@@ -76,11 +67,11 @@ class UnfollowUser(graphene.Mutation):
     @login_required
     def mutate(self, info, user_to_unfollow):
         try:
-            unfollow_request = Following.objects.filter(
-                follower=info.context.user
-            ).get(followed=user_to_unfollow)
+            unfollow_request = Following.objects.filter(follower=info.context.user).get(
+                followed=user_to_unfollow
+            )
         except ObjectDoesNotExist:
-            raise GraphQLError('The user not exists or not following!')
+            raise GraphQLError("The user not exists or not following!")
         unfollow_request.delete()
         return UnfollowUser(current_request=unfollow_request)
 
@@ -94,24 +85,20 @@ class RemoveFollower(graphene.Mutation):
     @login_required
     def mutate(self, info, follower_to_remove):
         try:
-            remove_follower = Following.objects.filter(
-                followed=info.context.user
-            ).get(follower=follower_to_remove)
+            remove_follower = Following.objects.filter(followed=info.context.user).get(
+                follower=follower_to_remove
+            )
         except ObjectDoesNotExist:
-            raise GraphQLError('The user is not following you or not exists!')
+            raise GraphQLError("The user is not following you or not exists!")
         remove_follower.delete()
         return RemoveFollower(current_request=remove_follower)
 
 
 def get_exact_follower(info, id):
     try:
-        return Following.objects.filter(
-            followed=info.context.user.id
-        ).get(
-            follower=id
-        )
+        return Following.objects.filter(followed=info.context.user.id).get(follower=id)
     except ObjectDoesNotExist:
-        raise GraphQLError('The follow request does not exists!')
+        raise GraphQLError("The follow request does not exists!")
 
 
 class AproveFollower(graphene.Mutation):

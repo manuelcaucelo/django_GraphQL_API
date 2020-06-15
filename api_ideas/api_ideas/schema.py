@@ -22,7 +22,8 @@ class AuthMutation(graphene.ObjectType):
 
 
 class Query(
-    UserQuery, MeQuery,
+    UserQuery,
+    MeQuery,
     users.schema.Query,
     ideas.schema.Query,
     following.schema.Query,
@@ -41,9 +42,7 @@ class Mutation(
     pass
 
 
-class Subscription(
-    ideas.schema.Subscription
-):
+class Subscription(ideas.schema.Subscription):
     pass
 
 
